@@ -3,26 +3,68 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primaryTeal: #00a2ad;
+  --darkerTeal: #014656;
+  --orangeTeal: #fdd65d;
+  --darkerOrange: #f6a801;
+  --svBg: #f9f7f6;
+  --svText: #1c1d26;
+  --iconGray: #b6b6b6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "GeistMono";
+  src: url("fonts/GeistMonoVF.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GeistVF";
+  src: url("fonts/GeistVF.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  background: var(--svText);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--svText);
+  background: var(--svBg);
+  margin: 0 auto 0 auto;
   font-family: Arial, Helvetica, sans-serif;
-  animation: backgroundChange 5s infinite ease-in-out;
+  max-width: 393px;
+  overflow-x: clip;
+  /* animation: backgroundChange 5s infinite ease-in-out; */
 }
 
 @keyframes backgroundChange {
   50% {
     background: var(--foreground);
   }
+}
+
+.GeistVF {
+  font-family: "GeistVf";
+}
+
+.GeistMono {
+  font-family: "GeistMono";
+}
+
+.sansSerif {
+  font-family: sans-serif;
+}
+
+.arial {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.times {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.cursive {
+  font-family: cursive;
 }
