@@ -1,9 +1,15 @@
 .collapsed {
   height: 0px;
   overflow: clip;
+
   transition: all 0.2s ease-out;
 }
 
-.expanded {
+.translateCollapsed {
+  transform: translateY(-300px);
+}
+
+.translateExpand {
   transition: all 0.2s ease-in;
+  transform: translateY(0px);
 }

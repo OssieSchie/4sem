@@ -1,0 +1,11 @@
+server component (fetch/post)
+-Client component (savedata object read/write)
+--component expand wrapper (props: extend condition, savedata object items title etc.)
+---tool segment component(input)
+//add task or complete venture
+--task array map (from array in savedata object)
+--complete venture (trigger post savedata to database)
+
+-Make a collapsable/expandable component that recieves a boolean that determines if the component is collapsed or expanded
+-Switch boolean false->true when the last input field of the previous section has a value in the saveData object (aka listen to the object). 
+This way the users progress can be retraced easily since the progress is automatically drawn from the data recieved.  

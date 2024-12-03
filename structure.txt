@@ -1,7 +1,0 @@
-server component (fetch/post)
--Client component (savedata object read/write)
---component expand wrapper (props: extend condition, savedata object items title etc.)
----tool segment component(input)
-//add task or complete venture
---task array map (from array in savedata object)
---complete venture (trigger post savedata to database)

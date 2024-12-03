@@ -11,6 +11,10 @@
   --svText: #1c1d26;
   --iconGray: #b6b6b6;
 }
+
+* {
+  cursor: pointer;
+}
 @font-face {
   font-family: "AmsiPro";
   src: url("fonts/AmsiPro-Ultra.otf") format("opentype");
