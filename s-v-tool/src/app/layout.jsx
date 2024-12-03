@@ -10,7 +10,7 @@ import "./fonts.css";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-[100svh] w-[100svw]">
-      <body className="h-full w-full">{children}</body>
+      <body className="h-full w-[393px] ">{children}</body>
     </html>
   );
 }

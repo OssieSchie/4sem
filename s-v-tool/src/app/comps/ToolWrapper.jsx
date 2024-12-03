@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import ToolParent from "./ToolParent.jsx";
 import PreviewParent from "./PreviewParent.jsx";
+import ToolHeader from "./ToolHeader.jsx";
+import styles from "./ToolWrapper.module.css";
 
 export default function ToolWrapper() {
   const saveData = {
@@ -50,23 +52,25 @@ export default function ToolWrapper() {
     "Binge drinking 🍻",
   ];
 
-  const [showPreview, setShowPreview] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
+
+  function togglePreview() {
+    setShowPreview((prev) => !prev);
+    console.log("toggled preview");
+  }
 
   return (
-    <div className="relative w-full h-full">
-      <div className="absolute w-full h-full top-0 left-0">
-        <ToolParent setShowPreview={setShowPreview} />
+    <div className="relative w-full h-full overflow-x-clip">
+      <ToolHeader togglePreview={togglePreview} showPreview={showPreview} />
+      <div className="absolute w-full h-full top-[80px] left-0">
+        <ToolParent ventureArray={ventureArray} />
       </div>
       <div
-        className={`absolute w-full h-full top-0 left-0 ${
-          !showPreview ? "hidden" : ""
+        className={`absolute w-full h-full top-[80px] left-0 ${
+          !showPreview ? styles.popOut : styles.popOver
         }`}
       >
-        <PreviewParent
-          saveData={saveData}
-          ventureArray={ventureArray}
-          setShowPreview={setShowPreview}
-        />
+        <PreviewParent saveData={saveData} ventureArray={ventureArray} />
       </div>
     </div>
   );

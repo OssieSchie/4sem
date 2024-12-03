@@ -1,0 +1,9 @@
+.collapsed {
+  height: 0px;
+  overflow: clip;
+  transition: all 0.2s ease-out;
+}
+
+.expanded {
+  transition: all 0.2s ease-in;
+}

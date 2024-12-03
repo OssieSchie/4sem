@@ -9,22 +9,22 @@ export default function PlayersIcon({ players }) {
     if (players === 1) {
       setIsSolo(true);
       setIsDuo(false);
-      console.log("set players to solo");
+      //console.log("set players to solo");
     }
 
     if (players === 2) {
       setIsSolo(false);
       setIsDuo(true);
-      console.log("set players to duo");
+      //console.log("set players to duo");
     }
 
     if (players > 2) {
       setIsSolo(false);
       setIsDuo(false);
-      console.log("set players to group");
+      //console.log("set players to group");
     }
 
-    console.log("Players prop has changed:", players);
+    //console.log("Players prop has changed:", players);
   }, [players]);
 
   return (

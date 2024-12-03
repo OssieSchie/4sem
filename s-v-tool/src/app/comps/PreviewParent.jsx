@@ -2,29 +2,9 @@
 import PlayersIcon from "./dynamicIcons/PlayersIcon";
 import VentureLabel from "./dynamicIcons/VentureLabel";
 
-export default function PreviewParent({
-  saveData,
-  ventureArray,
-  setShowPreview,
-}) {
+export default function PreviewParent({ saveData, ventureArray }) {
   return (
     <div className="flex flex-col bg-svBg">
-      <div className="w-full flex bg-svBg p-4 justify-between">
-        <img
-          src="./icons/backArrow.svg"
-          alt="Back Arrow"
-          className="w-[35px] h-[35px] mt-auto"
-        />
-        <h1 className="text-center">Venture Preview</h1>
-        <img
-          src="./icons/togglePreview.svg"
-          alt="Toggle preview"
-          className="w-[35px] h-[35px] mt-auto"
-          onClick={() => {
-            setShowPreview((prev) => !prev);
-          }}
-        />
-      </div>
       <div className="w-full">
         <div className="w-full h-[293px] overflow-clip relative">
           <div className="absolute w-full h-full top-0 left-0 cardGradient z-10"></div>
