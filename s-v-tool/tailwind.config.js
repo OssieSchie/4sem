@@ -21,6 +21,9 @@ module.exports = {
       fontFamily: {
         GeistMono: ["GeistMono", "sans-serif"],
         GeistVF: ["GeistVF", "sans-serif"],
+        AmsiPro: ["AmsiPro", "sans-serif"],
+        Cabin: ["Cabin", "sans-serif"],
+        OpenSans: ["OpenSans", "sans-serif"],
       },
     },
   },
