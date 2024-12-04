@@ -20,16 +20,27 @@ export default function VentureDropDown({
           <h3 className="text-center ml-4">{selectedVenture}</h3>
         </div>
         <div
-          className={`min-w-[38px] h-full rounded-md bg-primaryTeal flex transition-transform ${
-            !isExpanded ? "" : "rotate-[180deg]"
+          className={`min-w-[38px] h-full rounded-md bg-primaryTeal flex transition-colors ${
+            !isExpanded
+              ? "bg-primaryTeal"
+              : "bg-svBg border-2 border-primaryTeal"
           }`}
         >
-          <div className="h-[22px] w-[28px] my-auto mx-auto overflow-clip relative rounded-sm ">
-            <img
-              src="./icons/whiteArrow.svg"
-              alt="white arrow"
-              className="w-[37px] h-[26px]"
-            />
+          <div className="h-[27px] w-[30px] my-auto mx-auto relative rounded-sm flex justify-center">
+            {!isExpanded && (
+              <img
+                src="./icons/whiteArrow.svg"
+                alt="white arrow"
+                className="w-[30px] h-[27px]"
+              />
+            )}
+            {isExpanded && (
+              <img
+                src="./icons/whiteArrowOutline.svg"
+                alt="white arrow outline"
+                className="w-[30px] h-[27px]"
+              />
+            )}
           </div>
         </div>
       </div>
