@@ -10,7 +10,7 @@ import "./fonts.css";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-[100svh] w-[100svw]">
-      <body suppressHydrationWarning className="h-full w-[393px] ">
+      <body suppressHydrationWarning className="h-[852px] w-[393px] ">
         {children}
       </body>
     </html>

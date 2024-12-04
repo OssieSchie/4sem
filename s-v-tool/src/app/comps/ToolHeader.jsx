@@ -1,7 +1,7 @@
 "use client";
 export default function ToolHeader({ togglePreview, showPreview }) {
   return (
-    <div className="w-full flex bg-svBg py-4 px-2 justify-between z-50 sticky top-0 left-0">
+    <div className="w-full flex bg-svBg py-4 px-2 justify-between z-30 sticky top-0 left-0">
       <img
         src="./icons/backArrow.svg"
         alt="Back Arrow"
