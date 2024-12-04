@@ -31,18 +31,8 @@ export default function ToolWrapper() {
       },
     ],
   };
-  //VVV Null object VVV
-  // const saveData = {
-  //   players: null,
-  //   type: null,
-  //   title: null,
-  //   image: null,
-  //   imageX: null,
-  //   imageY: null,
-  //   desc: null,
-  //   time: null,
-  //   tasks: [],
-  // };
+
+  //const saveData = false;
 
   const ventureArray = [
     "Journey 🚶‍♀️",
@@ -63,7 +53,7 @@ export default function ToolWrapper() {
     <div className="relative w-full h-full overflow-x-clip">
       <ToolHeader togglePreview={togglePreview} showPreview={showPreview} />
       <div className="absolute w-full h-full top-[80px] left-0">
-        <ToolParent ventureArray={ventureArray} />
+        <ToolParent ventureArray={ventureArray} saveData={saveData} />
       </div>
       <div
         className={`absolute w-full h-full top-[80px] left-0 ${

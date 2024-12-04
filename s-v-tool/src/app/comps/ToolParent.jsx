@@ -1,11 +1,60 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RadioButton from "./toolComps/RadioButton";
 import VentureDropDown from "./toolComps/VentureDropdown";
+import ConditionalExpandable from "./toolComps/conditionalExpandable";
+import VentureTitle from "./toolComps/VentureTitle";
 
-export default function ToolParent({ ventureArray }) {
+export default function ToolParent({ ventureArray, saveData }) {
   const [selectedPlayers, setSelectedPlayers] = useState(0);
   const [selectedVenture, setSelectedVenture] = useState("Select Venture type");
+  const [ventureTitle, setVentureTitle] = useState(false);
+
+  //WRITE SAVEDATA
+  const [localSaveData, setLocalSaveData] = useState({
+    players: null,
+    type: null,
+    title: null,
+    image: null,
+    imageX: null,
+    imageY: null,
+    desc: null,
+    time: null,
+    tasks: [],
+  });
+
+  //STAGE CONTROLLER
+  //console.log("SAVEDATA:" + "\n" + JSON.stringify(saveData));
+  const [stageOneComplete, setStageOneComplete] = useState(false);
+  const [stageTwoComplete, setStageTwoComplete] = useState(false);
+  const [stageThreeComplete, setStageThreeComplete] = useState(false);
+
+  useEffect(() => {
+    if (saveData) {
+      setLocalSaveData(saveData);
+      console.log("Set local save data: \n" + JSON.stringify(localSaveData));
+    } else {
+      console.log("no saveData found");
+    }
+
+    if (localSaveData.players && localSaveData.type) {
+      setStageOneComplete(true);
+      console.log("Completed stage 1");
+
+      setSelectedPlayers(localSaveData.players);
+      setSelectedVenture(localSaveData.type);
+    } else if (stageOneComplete && localSaveData.title && localSaveData.image) {
+      setStageTwoComplete(true);
+      console.log("Completed stage 2");
+    } else if (stageTwoComplete && localSaveData.desc && localSaveData.time) {
+      setStageThreeComplete(true);
+      console.log("Completed stage 3");
+    } else {
+      setStageOneComplete(false);
+      setStageTwoComplete(false);
+      setStageThreeComplete(false);
+    }
+  }, [localSaveData]);
 
   function selectRadio(selection) {
     setSelectedPlayers(selection);
@@ -48,6 +97,13 @@ export default function ToolParent({ ventureArray }) {
           setSelectedVenture={setSelectedVenture}
         />
       </div>
+      {/* STAGE 2 */}
+      <ConditionalExpandable condition={stageOneComplete}>
+        <VentureTitle
+          ventureTitle={ventureTitle}
+          setVentureTitle={setVentureTitle}
+        />
+      </ConditionalExpandable>
     </div>
   );
 }

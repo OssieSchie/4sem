@@ -1,0 +1,13 @@
+.heightCollapse {
+  height: 0;
+  transform: translateY(0%);
+}
+
+.heightExpanded {
+  height: 100%;
+}
+
+.animateHeight {
+  transform: translateY(-100%);
+  transition: all 0.1s ease-in;
+}

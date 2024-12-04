@@ -17,7 +17,7 @@ export default function VentureDropDown({
         }}
       >
         <div className="w-full h-full rounded-md bg-darkerOrange flex justify-center">
-          <h3 className="text-center ml-4">{selectedVenture}</h3>
+          <h3 className="text-center ml-4">{ventureArray[selectedVenture]}</h3>
         </div>
         <div
           className={`min-w-[38px] h-full rounded-md bg-primaryTeal flex transition-colors ${
@@ -63,7 +63,7 @@ export default function VentureDropDown({
               }}
               className="bg-svBg"
             >
-              <p className="text-center my-2 ">{venture}</p>
+              <p className="text-center py-2 ">{venture}</p>
               <div className="w-3/4 h-[2px] mx-auto bg-darkerOrange" />
             </div>
           ))}
