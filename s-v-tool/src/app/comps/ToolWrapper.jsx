@@ -6,33 +6,35 @@ import ToolHeader from "./ToolHeader.jsx";
 import styles from "./ToolWrapper.module.css";
 
 export default function ToolWrapper() {
-  const saveData = {
-    players: 3,
-    type: 4,
-    title: "Kreizey Venture title",
-    image: "https://i.imgur.com/3cVlvTP.jpeg",
-    imageX: 0,
-    imageY: -260,
-    desc: "Example of a venture description, featuring exciting facts and stories hihihi",
-    time: 120,
-    tasks: [
-      {
-        locationAdr: "Slagelsegade 11, 1st th",
-        locationGeo: [55.693425, 12.557004],
-        desc: "Go over here and jump 28351732c times before doing a cool move",
-        image: "https://i.imgur.com/3cVlvTP.jpeg",
-      },
-      {
-        locationAdr: "Mogensvej 47, 2b",
-        locationGeo: [55.693425, 12.557004],
-        desc: "Find Mogens, han kan ikke gemme sig for evigt",
-        image:
-          "https://danmarkshistorien.dk/fileadmin/_processed_/5/f/csm_Mogens_Glistrup_ddb3368d5d.jpg",
-      },
-    ],
-  };
+  const [saveData, setSaveData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [dataRequest, setDataRequest] = useState("Half");
 
-  //const saveData = false;
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "/api/getFullDummyData?type=" + dataRequest
+        ); // Adjust 'Full' to desired type
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        if (result.success) {
+          setSaveData(result.data);
+        } else {
+          throw new Error(result.error || "Unknown error occurred");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const ventureArray = [
     "Select Venture type",
@@ -96,6 +98,38 @@ export default function ToolWrapper() {
 
   return (
     <div className="relative w-full h-full overflow-x-clip overflow-y-scroll">
+      <div className="fixed bottom-0 right-0 flex gap-2">
+        <div
+          className={`h-8 w-16 text-center flex flex-col justify-center ${
+            dataRequest === "Full" ? "bg-gray-400" : "bg-white"
+          }`}
+          onClick={() => {
+            setDataRequest("Full");
+          }}
+        >
+          FULL
+        </div>
+        <div
+          className={`h-8 w-16 text-center flex flex-col justify-center ${
+            dataRequest === "Half" ? "bg-gray-400" : "bg-white"
+          }`}
+          onClick={() => {
+            setDataRequest("Half");
+          }}
+        >
+          HALF
+        </div>
+        <div
+          className={`h-8 w-16 text-center flex flex-col justify-center ${
+            dataRequest === "Empty" ? "bg-gray-400" : "bg-white"
+          }`}
+          onClick={() => {
+            setDataRequest("Empty");
+          }}
+        >
+          EMPTY
+        </div>
+      </div>
       <ToolHeader togglePreview={togglePreview} showPreview={showPreview} />
       <div className="absolute w-full h-full top-[80px] left-0">
         <ToolParent

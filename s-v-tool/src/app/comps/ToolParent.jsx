@@ -33,30 +33,30 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
     tasks: [],
   });
 
+  useEffect(() => {
+    if (saveData && Object.keys(saveData).length > 0) {
+      console.log("SAVEDATA \n" + JSON.stringify(saveData));
+
+      const newData = {
+        players: saveData.players ?? localSaveData.players,
+        type: saveData.type ?? localSaveData.type,
+        title: saveData.title ?? localSaveData.title,
+        image: saveData.image ?? localSaveData.image,
+        desc: saveData.desc ?? localSaveData.desc,
+        time: saveData.time ?? localSaveData.time,
+        tasks: Array.isArray(saveData.tasks)
+          ? saveData.tasks
+          : localSaveData.tasks,
+      };
+
+      setLocalSaveData(newData);
+    }
+  }, [saveData]);
+
   //STAGE CONTROLLER
   const [stageOneComplete, setStageOneComplete] = useState(false);
   const [stageTwoComplete, setStageTwoComplete] = useState(false);
   const [stageThreeComplete, setStageThreeComplete] = useState(false);
-
-  useEffect(() => {
-    if (saveData) {
-      console.log("SAVEDATA: \n" + JSON.stringify(saveData));
-      setLocalSaveData((prevData) => ({
-        ...prevData,
-        players: saveData.players ?? prevData.players,
-        type: saveData.type ?? prevData.type,
-        title: saveData.title ?? prevData.title,
-        image: saveData.image ?? prevData.image,
-        imageX: saveData.imageX ?? prevData.imageX,
-        imageY: saveData.imageY ?? prevData.imageY,
-        desc: saveData.desc ?? prevData.desc,
-        time: saveData.time ?? prevData.time,
-        tasks: saveData.tasks ?? prevData.tasks,
-      }));
-    } else {
-      console.log("no saveData found");
-    }
-  }, [saveData]);
 
   useEffect(() => {
     console.log("Set local save data: \n" + JSON.stringify(localSaveData));
@@ -118,18 +118,19 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
       {/* TEST DISPLAY OBJECT */}
       <div className="fixed top-0 left-0 bg-svBg flex flex-col gap-2">
         <h3>SAVEDATA</h3>
-        <p>Players: {saveData.players}</p>
-        <p>Type: {saveData.type}</p>
-        <p>Title: {saveData.title}</p>
+        <p>FETCHING: </p>
+        <p>Players: {saveData?.players || "no data"}</p>
+        <p>Type: {saveData?.type || "no data"}</p>
+        <p>Title: {saveData?.title || "no data"}</p>
         <div className="h-[100px] w-[100px] overflow-clip">
           <img
-            src={`${saveData?.image || "./icons/missingImaage.svg"}`}
+            src={`${saveData?.image || "./icons/missingImage.svg"}`}
             alt=" image"
             className="min-w-full min-h-full"
           />
         </div>
-        <p>Description: {saveData.desc}</p>
-        <p>Time: {saveData.time}</p>
+        <p>Description: {saveData?.desc || "no data"}</p>
+        <p>Time: {saveData?.time || "no data"}</p>
         <p>Tasks: {localSaveData.tasks.length}</p>
       </div>
       <div className="fixed top-0 right-0 bg-svBg flex flex-col gap-2">
@@ -142,7 +143,7 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
         <p>STATE Title: {ventureTitle}</p>
         <div className="h-[100px] w-[100px] overflow-clip">
           <img
-            src={`${localSaveData?.image || "./icons/missingImaage.svg"}`}
+            src={`${localSaveData?.image || "./icons/missingImage.svg"}`}
             alt=" image"
             className="min-w-full min-h-full"
           />

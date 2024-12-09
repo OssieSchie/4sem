@@ -25,7 +25,7 @@ export default function SelectImage({
       <div className="w-[121px] h-[121px] mt-auto overflow-clip border-2 border-darkerOrange rounded-lg">
         {selectedImage && (
           <img
-            src={selectedImage || "./icons/missingImaage.svg"}
+            src={selectedImage || "./icons/missingImage.svg"}
             alt="Your selected image"
             className=" minw-full "
           />

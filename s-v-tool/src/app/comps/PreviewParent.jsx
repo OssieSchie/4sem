@@ -20,10 +20,10 @@ export default function PreviewParent({ saveData, ventureArray }) {
             </div>
           </div>
           <img
-            src={`${saveData?.image || "./icons/missingImaage.svg"}`}
+            src={`${saveData?.image || "./icons/missingImage.svg"}`}
             alt="Venture Image here :D"
             style={{
-              transform: `translate(${saveData.imageX || 0}px, ${
+              transform: `translate(${saveData?.imageX || 0}px, ${
                 saveData?.imageY || 0
               }px)`,
             }}
