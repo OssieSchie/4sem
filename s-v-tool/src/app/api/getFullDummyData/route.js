@@ -64,11 +64,7 @@ export async function GET(request) {
     } else if (dataType === "Empty") {
       saveData = saveDataEmpty;
     } else {
-      console.log("Invalid saveData type");
-      return NextResponse.json(
-        { success: false, error: "Invalid saveData type" },
-        { status: 400 }
-      );
+      saveData = saveDataFull;
     }
 
     if (!dataType) {

@@ -9,7 +9,13 @@ import SelectImage from "./toolComps/SelectImage";
 import SelectImageModal from "./toolComps/SelectImageModal";
 import Description from "./toolComps/Description";
 
-export default function ToolParent({ ventureArray, saveData, imageTypes }) {
+export default function ToolParent({
+  ventureArray,
+  saveData,
+  imageTypes,
+  updateTrigger,
+  setUpdateTrigger,
+}) {
   const [selectedPlayers, setSelectedPlayers] = useState(0);
   const [selectedVenture, setSelectedVenture] = useState(0);
   const [ventureTitle, setVentureTitle] = useState(false);
@@ -17,8 +23,6 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
   const [showImageModal, setShowImageModal] = useState(false);
   const [ventureDescription, setVentureDescription] = useState(false);
   const [selectedTime, setSelectedTime] = useState(false);
-
-  const [updateTrigger, setUpdateTrigger] = useState(false);
 
   //WRITE SAVEDATA
   const [localSaveData, setLocalSaveData] = useState({
