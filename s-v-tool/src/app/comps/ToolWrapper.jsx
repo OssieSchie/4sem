@@ -9,7 +9,7 @@ export default function ToolWrapper() {
   const saveData = {
     players: 3,
     type: 4,
-    title: "Your Venture title",
+    title: "Kreizey Venture title",
     image: "https://i.imgur.com/3cVlvTP.jpeg",
     imageX: 0,
     imageY: -260,

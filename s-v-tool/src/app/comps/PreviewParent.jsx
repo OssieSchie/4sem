@@ -4,7 +4,7 @@ import VentureLabel from "./dynamicIcons/VentureLabel";
 
 export default function PreviewParent({ saveData, ventureArray }) {
   return (
-    <div className="flex flex-col bg-svBg">
+    <div className="flex flex-col bg-svBg h-full z-50">
       <div className="w-full">
         <div className="w-full h-[293px] overflow-clip relative">
           <div className="absolute w-full h-full top-0 left-0 cardGradient z-10"></div>
@@ -20,7 +20,7 @@ export default function PreviewParent({ saveData, ventureArray }) {
             </div>
           </div>
           <img
-            src={`${saveData.image}`}
+            src={`${saveData?.image || "./icons/missingImaage.svg"}`}
             alt="Venture Image here :D"
             style={{
               transform: `translate(${saveData.imageX || 0}px, ${

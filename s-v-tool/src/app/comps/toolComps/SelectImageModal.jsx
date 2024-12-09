@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 
 export default function SelectImageModal({
@@ -7,13 +8,15 @@ export default function SelectImageModal({
   setSelectedImage,
   imageTypes,
 }) {
+  const [selectedTheme, setSelectedTheme] = useState("Nature");
+
   return (
     <div
       className={`z-40 bg-[rgba(35,0,35,0.2)] w-[393px] h-[852px] fixed top-0 left-[763px] backdrop-blur-sm flex flex-col justify-center p-[14px] ${
-        showImageModal ? "" : "opacity-0 pointer-events-none"
+        showImageModal ? "" : "opacity-0 pointer-events-none h-0"
       }`}
     >
-      <div className={`w-full h-[200px] bg-svBg mx-auto`}>
+      <div className={`w-full h-[350px] bg-svBg mx-auto`}>
         <div className="h-[38px] min-w-full overflow-x-scroll flex">
           {imageTypes.map((type, index) => (
             <div

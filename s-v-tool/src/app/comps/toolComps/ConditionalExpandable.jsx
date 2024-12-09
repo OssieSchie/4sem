@@ -5,15 +5,9 @@ import styles from "./ConditionalExpandable.module.css";
 export default function ConditionalExpandable({ condition, children }) {
   return (
     <div
-      className={` w-full overflow-clip mt-[40px] ${
-        !condition ? styles.heightCollapse : styles.heightExpanded
-      }`}
+      className={` w-full mb-[40px] ${!condition ? styles.heightCollapse : ""}`}
     >
-      <div
-        className={` overflow-clip ${
-          !condition ? styles.heightCollapse : styles.heightExpanded
-        }`}
-      >
+      <div className={` ${!condition ? styles.heightCollapse : ""}`}>
         {children}
       </div>
     </div>

@@ -5,6 +5,7 @@ export default function VentureDropDown({
   ventureArray,
   selectedVenture,
   setSelectedVenture,
+  setUpdateTrigger,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -59,6 +60,7 @@ export default function VentureDropDown({
               key={index}
               onClick={() => {
                 setSelectedVenture(venture);
+                setUpdateTrigger((prev) => !prev);
                 setIsExpanded((prev) => !prev);
               }}
               className="bg-svBg"
