@@ -10,6 +10,7 @@ export default function ToolWrapper() {
   const searchParams = useSearchParams();
 
   const [saveData, setSaveData] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const [showPreview, setShowPreview] = useState(false);
