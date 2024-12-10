@@ -16,6 +16,7 @@ module.exports = {
         darkerOrange: "#F6A801",
         svBg: "#F9F7F6",
         svText: "#1C1D26",
+        svText50: "#8B8EA1",
         iconGray: "#B6B6B6",
       },
       fontFamily: {

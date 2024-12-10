@@ -9,6 +9,7 @@
   --darkerOrange: #f6a801;
   --svBg: #f9f7f6;
   --svText: #1c1d26;
+  --svText50: #8b8ea1;
   --iconGray: #b6b6b6;
 }
 
@@ -54,9 +55,12 @@ span {
 }
 h2,
 h3,
-p,
 span {
   color: var(--svText);
+}
+
+p {
+  color: var(--svText50);
 }
 
 html {

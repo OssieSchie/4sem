@@ -1,10 +1,6 @@
-export default function VentureTitle({
-  ventureTitle,
-  setVentureTitle,
-  setUpdateTrigger,
-}) {
+export default function VentureTitle({ ventureTitle, setVentureTitle }) {
   return (
-    <div className="w-full flex flex-col justify-center">
+    <div className="w-full flex flex-col justify-center mt-[40px]">
       <h2 className="text-center">Venture Title</h2>
       <input
         type="text"
@@ -13,7 +9,6 @@ export default function VentureTitle({
         placeholder={`Give your Venture a name!`}
         onBlur={(e) => {
           setVentureTitle(e.target.value);
-          setUpdateTrigger((prev) => !prev);
         }}
         defaultValue={ventureTitle ? ventureTitle : ""}
         className="w-[256px] mx-auto border-[3px] border-darkerOrange p-2 rounded-lg mt-2 focus:outline-none"

@@ -8,14 +8,9 @@ import VentureTitle from "./toolComps/VentureTitle";
 import SelectImage from "./toolComps/SelectImage";
 import SelectImageModal from "./toolComps/SelectImageModal";
 import Description from "./toolComps/Description";
+import Time from "./toolComps/Time";
 
-export default function ToolParent({
-  ventureArray,
-  saveData,
-  imageTypes,
-  updateTrigger,
-  setUpdateTrigger,
-}) {
+export default function ToolParent({ ventureArray, saveData, imageTypes }) {
   const [selectedPlayers, setSelectedPlayers] = useState(0);
   const [selectedVenture, setSelectedVenture] = useState(0);
   const [ventureTitle, setVentureTitle] = useState(false);
@@ -24,37 +19,16 @@ export default function ToolParent({
   const [ventureDescription, setVentureDescription] = useState(false);
   const [selectedTime, setSelectedTime] = useState(false);
 
-  //WRITE SAVEDATA
-  const [localSaveData, setLocalSaveData] = useState({
-    players: null,
-    type: null,
-    title: null,
-    image: null,
-    imageX: null,
-    imageY: null,
-    desc: null,
-    time: null,
-    tasks: [],
-  });
-
+  //READ SAVEDATA
   useEffect(() => {
-    if (saveData && Object.keys(saveData).length > 0) {
-      console.log("SAVEDATA \n" + JSON.stringify(saveData));
+    console.log("SAVEDATA \n" + JSON.stringify(saveData));
 
-      const newData = {
-        players: saveData.players ?? localSaveData.players,
-        type: saveData.type ?? localSaveData.type,
-        title: saveData.title ?? localSaveData.title,
-        image: saveData.image ?? localSaveData.image,
-        desc: saveData.desc ?? localSaveData.desc,
-        time: saveData.time ?? localSaveData.time,
-        tasks: Array.isArray(saveData.tasks)
-          ? saveData.tasks
-          : localSaveData.tasks,
-      };
-
-      setLocalSaveData(newData);
-    }
+    setSelectedPlayers(saveData.players ?? null);
+    setSelectedVenture(saveData.type ?? null);
+    setVentureTitle(saveData.title ?? null);
+    setSelectedImage(saveData.image ?? "./icons/missingImage.svg");
+    setVentureDescription(saveData.desc ?? null);
+    setSelectedTime(saveData.time ?? null);
   }, [saveData]);
 
   //STAGE CONTROLLER
@@ -63,57 +37,36 @@ export default function ToolParent({
   const [stageThreeComplete, setStageThreeComplete] = useState(false);
 
   useEffect(() => {
-    console.log("Set local save data: \n" + JSON.stringify(localSaveData));
+    console.log("SAVEDATA: \n" + JSON.stringify(saveData));
 
-    if (localSaveData.players && localSaveData.type) {
+    if (selectedPlayers && selectedVenture) {
       setStageOneComplete(true);
-
-      setSelectedPlayers(localSaveData.players);
-      setSelectedVenture(localSaveData.type);
       console.log(
         "Completed stage 1 \n" +
           "players: " +
-          localSaveData.players +
+          selectedPlayers +
           "\n Type: " +
-          localSaveData.type
+          selectedVenture
       );
     }
-  }, [localSaveData]);
+  }, [selectedPlayers, selectedVenture]);
 
   useEffect(() => {
-    if (stageOneComplete && localSaveData.title && localSaveData.image) {
+    if (stageOneComplete && ventureTitle && selectedImage) {
       setStageTwoComplete(true);
-      setVentureTitle(localSaveData.title);
-      setSelectedImage(localSaveData.image);
       console.log("Completed stage 2");
     }
-  }, [stageOneComplete, updateTrigger]);
+  }, [stageOneComplete]);
 
   useEffect(() => {
-    if (stageTwoComplete && localSaveData.desc && localSaveData.time) {
+    if (stageTwoComplete && ventureDescription && selectedTime) {
       setStageThreeComplete(true);
-      setVentureDescription(localSaveData.desc);
-      setSelectedTime(localSaveData.time);
       console.log("Completed stage 3");
     }
-  }, [stageTwoComplete, updateTrigger]);
-
-  // UPDATE LOCALSAVEDATA VALUES FROM STATES
-  useEffect(() => {
-    setLocalSaveData((prevData) => ({
-      ...prevData, // Keep existing values
-      players: selectedPlayers, // Update players
-      type: selectedVenture, // Update type
-      title: ventureTitle, // Update title
-      image: selectedImage, // Update image
-      desc: ventureDescription, // Update description
-      time: selectedTime, // Update time
-    }));
-  }, [updateTrigger]);
+  }, [stageTwoComplete]);
 
   function selectRadio(selection) {
     setSelectedPlayers(selection);
-    setUpdateTrigger((prev) => !prev);
     console.log("selected " + selection);
   }
 
@@ -135,28 +88,22 @@ export default function ToolParent({
         </div>
         <p>Description: {saveData?.desc || "no data"}</p>
         <p>Time: {saveData?.time || "no data"}</p>
-        <p>Tasks: {localSaveData.tasks.length}</p>
+        <p>Tasks: {saveData?.tasks.length || 0}</p>
       </div>
       <div className="fixed top-0 right-0 bg-svBg flex flex-col gap-2">
         <h3>LOCAL SAVEDATA</h3>
-        <p>Players: {localSaveData.players}</p>
         <p>STATE Players: {selectedPlayers}</p>
-        <p>Type: {localSaveData.type}</p>
         <p>STATE Type: {selectedVenture}</p>
-        <p>Title: {localSaveData.title}</p>
         <p>STATE Title: {ventureTitle}</p>
         <div className="h-[100px] w-[100px] overflow-clip">
           <img
-            src={`${localSaveData?.image || "./icons/missingImage.svg"}`}
+            src={`${selectedImage || "./icons/missingImage.svg"}`}
             alt=" image"
             className="min-w-full min-h-full"
           />
         </div>
-        <p>Description: {localSaveData.desc}</p>
         <p>STATE Description: {ventureDescription}</p>
-        <p>Time: {localSaveData.time}</p>
         <p>STATE Time: {selectedTime}</p>
-        <p>Tasks: {localSaveData.tasks.length}</p>
       </div>
       {/* SELECT IMAGE MODAL */}
       <div className="relative">
@@ -168,7 +115,7 @@ export default function ToolParent({
           imageTypes={imageTypes}
         />
       </div>
-      <div className="bg-svBg w-[393px] h-[772px] p-[14px] mb-[40px]">
+      <div className="bg-svBg w-[393px] h-[772px] p-[14px]">
         {/* SELECT PLAYERS */}
         <div className="w-full flex flex-col ">
           <h2 className="text-center ">Players</h2>
@@ -194,14 +141,13 @@ export default function ToolParent({
           </div>
         </div>
         {/* SELECT VENTURE TYPE */}
-        <div className="w-full flex flex-col mt-[40px]">
+        <div className="w-full flex flex-col mt-[20px]">
           <h2 className="text-center ">Venture Type</h2>
           <p className="text-center mb-[20px]">What kind of Venture is it?</p>
           <VentureDropDown
             ventureArray={ventureArray}
             selectedVenture={selectedVenture}
             setSelectedVenture={setSelectedVenture}
-            setUpdateTrigger={setUpdateTrigger}
           />
         </div>
         {/* STAGE 2 */}
@@ -209,20 +155,18 @@ export default function ToolParent({
           <VentureTitle
             ventureTitle={ventureTitle}
             setVentureTitle={setVentureTitle}
-            setUpdateTrigger={setUpdateTrigger}
           />
           <SelectImage
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
-            setUpdateTrigger={setUpdateTrigger}
           />
         </ConditionalExpandable>
         <ConditionalExpandable condition={stageTwoComplete}>
           <Description
             ventureDescription={ventureDescription}
             setVentureDescription={setVentureDescription}
-            setUpdateTrigger={setUpdateTrigger}
           />
+          <Time selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
         </ConditionalExpandable>
       </div>
     </div>

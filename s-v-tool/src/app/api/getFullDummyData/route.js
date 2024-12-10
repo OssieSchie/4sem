@@ -55,6 +55,8 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const dataType = searchParams.get("type");
 
+    console.log("dataType: \n" + dataType);
+
     let saveData;
 
     if (dataType === "Full") {
@@ -75,6 +77,7 @@ export async function GET(request) {
       );
     }
 
+    console.log("Returned data: \n", JSON.stringify(saveData));
     return NextResponse.json(
       { success: true, data: saveData },
       { status: 200 }

@@ -1,8 +1,4 @@
-export default function SelectImage({
-  selectedImage,
-  setSelectedImage,
-  setUpdateTrigger,
-}) {
+export default function SelectImage({ selectedImage, setSelectedImage }) {
   return (
     <div className="flex justify-center gap-4 mt-[20px] h-[140px]">
       <div className="flex flex-col max-w-[20ch]">
@@ -15,7 +11,6 @@ export default function SelectImage({
               setSelectedImage(
                 "https://cole-mswmag.imgix.net/https%3A%2F%2Fwww.mswmag.com%2Fuploads%2Fimages%2Fparis-sewers_171030_090042.jpg?fit=clip&ixlib=php-1.1.0&q=75&w=1024&s=00d6af931a45e45368421495b5b359a7"
               );
-              setUpdateTrigger((prev) => !prev);
             }}
           >
             Select Image
@@ -27,14 +22,14 @@ export default function SelectImage({
           <img
             src={selectedImage || "./icons/missingImage.svg"}
             alt="Your selected image"
-            className=" minw-full "
+            className=" min-w-full min-h-full"
           />
         )}
         {!selectedImage && (
           <img
             src="./icons/missingImage.svg"
             alt="no image selected"
-            className=" min-wfull"
+            className=" min-w-full min-h-full"
           />
         )}
       </div>
