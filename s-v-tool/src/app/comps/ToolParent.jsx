@@ -96,7 +96,19 @@ export default function ToolParent({
     }
   }
 
-  function updatePreview() {}
+  function updatePreview() {
+    setPreviewData({
+      players: selectedPlayers ?? null,
+      type: selectedVenture ?? null,
+      title: ventureTitle ?? null,
+      image: selectedImage ?? null,
+      imageX: null,
+      imageY: null,
+      desc: ventureDescription ?? null,
+      time: selectedTime ?? null,
+      tasks: [],
+    });
+  }
 
   useEffect(() => {
     checkStageProgress();
