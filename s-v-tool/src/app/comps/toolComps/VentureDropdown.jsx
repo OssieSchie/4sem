@@ -58,7 +58,7 @@ export default function VentureDropDown({
             <div
               key={index}
               onClick={() => {
-                setSelectedVenture(venture);
+                setSelectedVenture(index);
                 setIsExpanded((prev) => !prev);
               }}
               className="bg-svBg"

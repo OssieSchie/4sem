@@ -26,7 +26,7 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
     setSelectedPlayers(saveData.players ?? null);
     setSelectedVenture(saveData.type ?? null);
     setVentureTitle(saveData.title ?? null);
-    setSelectedImage(saveData.image ?? "./icons/missingImage.svg");
+    setSelectedImage(saveData.image ?? null);
     setVentureDescription(saveData.desc ?? null);
     setSelectedTime(saveData.time ?? null);
   }, [saveData]);
@@ -36,34 +36,74 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
   const [stageTwoComplete, setStageTwoComplete] = useState(false);
   const [stageThreeComplete, setStageThreeComplete] = useState(false);
 
-  useEffect(() => {
-    console.log("SAVEDATA: \n" + JSON.stringify(saveData));
+  function checkStageProgress() {
+    console.log(
+      "STATES: \n SELECTEDPLAYERS: " +
+        selectedPlayers +
+        "\n SELECTEDVENTURE: " +
+        selectedVenture +
+        "\n VENTURE TITLE: " +
+        ventureTitle +
+        "\n SELECTEDIMAGE: " +
+        selectedImage +
+        "\n VENTURE DESCRIPTION: " +
+        ventureDescription +
+        "\n SELECTED TIME: " +
+        selectedTime
+    );
 
-    if (selectedPlayers && selectedVenture) {
+    if (
+      selectedPlayers &&
+      selectedVenture &&
+      !ventureTitle &&
+      !selectedImage &&
+      !ventureDescription &&
+      !selectedTime
+    ) {
       setStageOneComplete(true);
-      console.log(
-        "Completed stage 1 \n" +
-          "players: " +
-          selectedPlayers +
-          "\n Type: " +
-          selectedVenture
-      );
-    }
-  }, [selectedPlayers, selectedVenture]);
-
-  useEffect(() => {
-    if (stageOneComplete && ventureTitle && selectedImage) {
+      console.log("Stage 1 complete");
+    } else if (
+      selectedPlayers &&
+      selectedVenture &&
+      ventureTitle &&
+      selectedImage &&
+      !ventureDescription &&
+      !selectedTime
+    ) {
+      setStageOneComplete(true);
       setStageTwoComplete(true);
-      console.log("Completed stage 2");
+      console.log("Stage 2 complete");
+    } else if (
+      selectedPlayers &&
+      selectedVenture &&
+      ventureTitle &&
+      selectedImage &&
+      ventureDescription &&
+      selectedTime
+    ) {
+      setStageOneComplete(true);
+      setStageTwoComplete(true);
+      setStageThreeComplete(true);
+      console.log("Stage 3 complete");
+    } else {
+      console.log("No change to stage progression");
     }
-  }, [stageOneComplete]);
+  }
 
   useEffect(() => {
-    if (stageTwoComplete && ventureDescription && selectedTime) {
-      setStageThreeComplete(true);
-      console.log("Completed stage 3");
-    }
-  }, [stageTwoComplete]);
+    checkStageProgress();
+  }, [
+    selectedPlayers,
+    selectedVenture,
+    ventureTitle,
+    selectedImage,
+    ventureDescription,
+    selectedTime,
+  ]);
+
+  useEffect(() => {
+    checkStageProgress();
+  }, []);
 
   function selectRadio(selection) {
     setSelectedPlayers(selection);
