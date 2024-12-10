@@ -2,7 +2,7 @@
 import PlayersIcon from "./dynamicIcons/PlayersIcon";
 import VentureLabel from "./dynamicIcons/VentureLabel";
 
-export default function PreviewParent({ saveData, ventureArray }) {
+export default function PreviewParent({ saveData, ventureArray, previewData }) {
   return (
     <div className="flex flex-col bg-svBg h-full z-50">
       <div className="w-full">

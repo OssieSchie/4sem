@@ -11,7 +11,19 @@ export default function ToolWrapper() {
 
   const [saveData, setSaveData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
   const [showPreview, setShowPreview] = useState(false);
+  const [previewData, setPreviewData] = useState({
+    players: null,
+    type: null,
+    title: null,
+    image: null,
+    imageX: null,
+    imageY: null,
+    desc: null,
+    time: null,
+    tasks: [],
+  });
 
   const dataType = searchParams.get("type") || "Full";
 
@@ -107,6 +119,8 @@ export default function ToolWrapper() {
               ventureArray={ventureArray}
               saveData={saveData}
               imageTypes={imageTypes}
+              previewData={previewData}
+              setPreviewData={setPreviewData}
             />
           </div>
           <div
@@ -114,7 +128,11 @@ export default function ToolWrapper() {
               !showPreview ? styles.popOut : styles.popOver
             }`}
           >
-            <PreviewParent saveData={saveData} ventureArray={ventureArray} />
+            <PreviewParent
+              saveData={saveData}
+              ventureArray={ventureArray}
+              previewData={previewData}
+            />
           </div>
         </>
       )}

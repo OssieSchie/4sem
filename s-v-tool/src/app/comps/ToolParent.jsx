@@ -10,7 +10,13 @@ import SelectImageModal from "./toolComps/SelectImageModal";
 import Description from "./toolComps/Description";
 import Time from "./toolComps/Time";
 
-export default function ToolParent({ ventureArray, saveData, imageTypes }) {
+export default function ToolParent({
+  ventureArray,
+  saveData,
+  imageTypes,
+  previewData,
+  setPreviewData,
+}) {
   const [selectedPlayers, setSelectedPlayers] = useState(0);
   const [selectedVenture, setSelectedVenture] = useState(0);
   const [ventureTitle, setVentureTitle] = useState(false);
@@ -90,8 +96,11 @@ export default function ToolParent({ ventureArray, saveData, imageTypes }) {
     }
   }
 
+  function updatePreview() {}
+
   useEffect(() => {
     checkStageProgress();
+    updatePreview();
   }, [
     selectedPlayers,
     selectedVenture,
