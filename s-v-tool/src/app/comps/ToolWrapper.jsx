@@ -9,8 +9,18 @@ import styles from "./ToolWrapper.module.css";
 export default function ToolWrapper() {
   const searchParams = useSearchParams();
 
-  const [saveData, setSaveData] = useState(null);
-
+  const [saveData, setSaveData] = useState({
+    players: null,
+    type: null,
+    title: null,
+    image: null,
+    imageX: null,
+    imageY: null,
+    desc: null,
+    time: null,
+    tasks: [],
+  });
+  const [savedVentures, setSavedVentures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [showPreview, setShowPreview] = useState(false);
@@ -26,22 +36,23 @@ export default function ToolWrapper() {
     tasks: [],
   });
 
-  const dataType = searchParams.get("type") || "Full";
+  //const dataType = searchParams.get("type") || "Full";
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
 
       try {
-        const response = await fetch(`/api/getFullDummyData?type=${dataType}`);
+        const response = await fetch(`/api/getAllVentures`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const result = await response.json();
-        if (result.success) {
-          setSaveData(result.data);
+        const { data } = await response.json();
+        if (data) {
+          console.log(data);
+          setSavedVentures(data);
         } else {
-          throw new Error(result.error || "Unknown error occurred");
+          throw new Error("No data received");
         }
       } catch (err) {
         console.error(err.message);
@@ -56,6 +67,14 @@ export default function ToolWrapper() {
   function togglePreview() {
     setShowPreview((prev) => !prev);
     console.log("Toggled preview");
+  }
+
+  function handleSaveData(id) {
+    const selectedVenture = savedVentures.find((venture) => venture.id === id);
+    if (selectedVenture) {
+      setSaveData(selectedVenture);
+      console.log("SET SAVEDATA TO: \n" + JSON.stringify(selectedVenture));
+    }
   }
 
   const ventureArray = [
@@ -76,7 +95,7 @@ export default function ToolWrapper() {
       {isLoading && <div> loading... </div>}
       {!isLoading && (
         <>
-          <div className="fixed bottom-0 right-0 flex gap-2">
+          {/* <div className="fixed bottom-0 right-0 flex gap-2">
             <div
               className={`h-8 w-16 text-center flex flex-col justify-center ${
                 dataType === "Full" ? "bg-gray-400" : "bg-white"
@@ -113,6 +132,20 @@ export default function ToolWrapper() {
                 EMPTY
               </a>
             </div>
+          </div> */}
+          <div className="fixed bottom-0 right-0 flex flex-col gap-4 bg-white">
+            {savedVentures.map((venture, index) => (
+              <div
+                key={index}
+                className="flex gap-4"
+                onClick={() => {
+                  handleSaveData(venture.id);
+                }}
+              >
+                <h2>ID: {venture.id}</h2>
+                <h3>Title: {venture.title ?? "No title yet"}</h3>
+              </div>
+            ))}
           </div>
           <ToolHeader togglePreview={togglePreview} showPreview={showPreview} />
           <div className="absolute w-full h-full top-[80px] left-0">

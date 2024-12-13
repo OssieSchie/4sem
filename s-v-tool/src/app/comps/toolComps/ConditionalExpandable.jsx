@@ -8,7 +8,7 @@ export default function ConditionalExpandable({ condition, children }) {
       className={` w-full mt-[20px] ${!condition ? styles.heightCollapse : ""}`}
     >
       <div className={` ${!condition ? styles.animateHeight : "mt-[20px]"}`}>
-        <div className="w-full border-t border-[2px] border-svText h-[1px] bg-text"></div>
+        <div className="w-full border-t border-[1px] border-svText50 h-[1px]"></div>
         {children}
       </div>
     </div>

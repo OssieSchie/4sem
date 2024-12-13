@@ -26,7 +26,7 @@ export default function PreviewParent({ saveData, ventureArray, previewData }) {
             alt="Venture Image here :D"
             style={{
               transform: `translate(${previewData?.imageX || 0}px, ${
-                previewData?.imageY || -260
+                previewData?.imageY || 0
               }px)`,
             }}
             className="min-w-full min-h-full"

@@ -134,7 +134,7 @@ export default function ToolParent({
   return (
     <div>
       {/* TEST DISPLAY OBJECT */}
-      <div className="fixed top-0 left-0 bg-svBg flex flex-col gap-2">
+      <div className="fixed top-0 left-0 bg-svBg flex flex-col gap-2 max-w-[30ch]">
         <h3>SAVEDATA</h3>
         <p>FETCHING: </p>
         <p>Players: {saveData?.players || "no data"}</p>
@@ -151,7 +151,7 @@ export default function ToolParent({
         <p>Time: {saveData?.time || "no data"}</p>
         <p>Tasks: {saveData?.tasks.length || 0}</p>
       </div>
-      <div className="fixed top-0 right-0 bg-svBg flex flex-col gap-2">
+      <div className="fixed top-0 right-0 bg-svBg flex flex-col gap-2 max-w-[30ch]">
         <h3>LOCAL SAVEDATA</h3>
         <p>STATE Players: {selectedPlayers}</p>
         <p>STATE Type: {selectedVenture}</p>
