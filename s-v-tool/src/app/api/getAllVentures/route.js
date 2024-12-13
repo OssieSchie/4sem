@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.SUPABASE_VENTURES_URL;
-const supabaseKey = process.env.SUPABASE_VENTURES_API;
+const supabaseUrl = "https://pfcdpmvnxqewlnmxnpoy.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmY2RwbXZueHFld2xubXhucG95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM4Mjk5NjcsImV4cCI6MjA0OTQwNTk2N30.K5kn5ToLASy8008_3E60o2OSYjrc5kT95-mOTGJioTw";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function GET(req) {
@@ -24,3 +25,6 @@ export async function GET(req) {
     });
   }
 }
+
+// SUPABASE_VENTURES_URL=https://pfcdpmvnxqewlnmxnpoy.supabase.co
+// SUPABASE_VENTURES_API=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmY2RwbXZueHFld2xubXhucG95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM4Mjk5NjcsImV4cCI6MjA0OTQwNTk2N30.K5kn5ToLASy8008_3E60o2OSYjrc5kT95-mOTGJioTw
