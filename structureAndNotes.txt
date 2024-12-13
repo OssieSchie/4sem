@@ -8,4 +8,12 @@ server component (fetch/post)
 
 -Make a collapsable/expandable component that recieves a boolean that determines if the component is collapsed or expanded
 -Switch boolean false->true when the last input field of the previous section has a value in the saveData object (aka listen to the object). 
-This way the users progress can be retraced easily since the progress is automatically drawn from the data recieved.  
+This way the users progress can be retraced easily since the progress is automatically drawn from the data recieved. 
+
+
+MISSING FROM CODE!!!:
+-validation on input fields
+-Finish image modal
+-add new task/complete venture
+-add task module
+-add finish venture module
