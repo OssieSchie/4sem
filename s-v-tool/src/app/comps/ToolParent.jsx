@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import RadioButton from "./toolComps/RadioButton";
 import VentureDropDown from "./toolComps/VentureDropdown";
-import ConditionalExpandable from "./toolComps/conditionalExpandable";
+import ConditionalExpandable from "./toolComps/ConditionalExpandable";
 import VentureTitle from "./toolComps/VentureTitle";
 import SelectImage from "./toolComps/SelectImage";
 import SelectImageModal from "./toolComps/SelectImageModal";
