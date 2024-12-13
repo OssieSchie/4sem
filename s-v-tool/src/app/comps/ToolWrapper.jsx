@@ -1,5 +1,4 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ToolParent from "./ToolParent.jsx";
 import PreviewParent from "./PreviewParent.jsx";
@@ -7,8 +6,6 @@ import ToolHeader from "./ToolHeader.jsx";
 import styles from "./ToolWrapper.module.css";
 
 export default function ToolWrapper() {
-  const searchParams = useSearchParams();
-
   const [saveData, setSaveData] = useState({
     players: null,
     type: null,
