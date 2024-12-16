@@ -220,6 +220,7 @@ export default function ToolParent({
           <SelectImage
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
+            setShowImageModal={setShowImageModal}
           />
         </ConditionalExpandable>
         <ConditionalExpandable condition={stageTwoComplete}>
