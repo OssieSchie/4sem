@@ -7,6 +7,7 @@ import styles from "./ToolWrapper.module.css";
 
 export default function ToolWrapper() {
   const [saveData, setSaveData] = useState({
+    id: null,
     players: null,
     type: null,
     title: null,
@@ -22,6 +23,19 @@ export default function ToolWrapper() {
 
   const [showPreview, setShowPreview] = useState(false);
   const [previewData, setPreviewData] = useState({
+    players: null,
+    type: null,
+    title: null,
+    image: null,
+    imageX: null,
+    imageY: null,
+    desc: null,
+    time: null,
+    tasks: [],
+  });
+
+  const [newSaveData, setNewSaveData] = useState({
+    id: null,
     players: null,
     type: null,
     title: null,
@@ -127,6 +141,39 @@ export default function ToolWrapper() {
     },
   ];
 
+  async function saveVenture(data) {
+    try {
+      console.log("Sending data:", data); // Debug log
+
+      const response = await fetch("/api/saveVenture", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: data.id,
+          data: {
+            ...data,
+            tasks: data.tasks, // This will be stringified in the route handler
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Response not OK:", errorData); // Debug log
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Save successful:", result);
+      return result;
+    } catch (error) {
+      console.error("Error saving venture:", error);
+      throw error;
+    }
+  }
+
   return (
     <div className="relative w-full h-full overflow-x-clip overflow-y-scroll">
       {isLoading && <div> loading... </div>}
@@ -184,6 +231,14 @@ export default function ToolWrapper() {
               </div>
             ))}
           </div>
+          <div
+            className="fixed top-0 right-0 flex flex-col justify-center text-center p-4 rounded-lg bg-darkerOrange"
+            onClick={() => {
+              saveVenture(newSaveData);
+            }}
+          >
+            <h2>SAVE VENTURE</h2>
+          </div>
           <ToolHeader togglePreview={togglePreview} showPreview={showPreview} />
           <div className="absolute w-full h-full top-[80px] left-0">
             <ToolParent
@@ -192,6 +247,7 @@ export default function ToolWrapper() {
               imageTypes={imageTypes}
               previewData={previewData}
               setPreviewData={setPreviewData}
+              setNewSaveData={setNewSaveData}
             />
           </div>
           <div

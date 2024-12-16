@@ -16,6 +16,7 @@ export default function ToolParent({
   imageTypes,
   previewData,
   setPreviewData,
+  setNewSaveData,
 }) {
   const [selectedPlayers, setSelectedPlayers] = useState(0);
   const [selectedVenture, setSelectedVenture] = useState(0);
@@ -96,6 +97,21 @@ export default function ToolParent({
     }
   }
 
+  function updateSaveData() {
+    setNewSaveData({
+      id: saveData.id || null,
+      players: selectedPlayers || saveData.players || null,
+      type: selectedVenture || saveData.type || null,
+      title: ventureTitle || saveData.venture || null,
+      image: selectedImage || saveData.image || null,
+      imageX: saveData.imageX || null,
+      imageY: saveData.imageY || null,
+      desc: ventureDescription || saveData.desc || null,
+      time: selectedTime || saveData.time || null,
+      tasks: saveData.tasks || [],
+    });
+  }
+
   function updatePreview() {
     setPreviewData({
       players: selectedPlayers ?? null,
@@ -113,6 +129,8 @@ export default function ToolParent({
   useEffect(() => {
     checkStageProgress();
     updatePreview();
+    updateSaveData();
+    console.log("SAAAAAAVEDATA \n" + JSON.stringify(saveData));
   }, [
     selectedPlayers,
     selectedVenture,
@@ -134,7 +152,7 @@ export default function ToolParent({
   return (
     <div>
       {/* TEST DISPLAY OBJECT */}
-      <div className="fixed top-0 left-0 bg-svBg flex flex-col gap-2 max-w-[30ch]">
+      {/* <div className="fixed top-0 left-0 bg-svBg flex flex-col gap-2 max-w-[30ch]">
         <h3>SAVEDATA</h3>
         <p>FETCHING: </p>
         <p>Players: {saveData?.players || "no data"}</p>
@@ -150,9 +168,10 @@ export default function ToolParent({
         <p>Description: {saveData?.desc || "no data"}</p>
         <p>Time: {saveData?.time || "no data"}</p>
         <p>Tasks: {saveData?.tasks.length || 0}</p>
-      </div>
-      <div className="fixed top-0 right-0 bg-svBg flex flex-col gap-2 max-w-[30ch]">
+      </div> */}
+      <div className="fixed top-0 left-0 bg-svBg flex flex-col gap-2 max-w-[30ch]">
         <h3>LOCAL SAVEDATA</h3>
+        <p>VENTURE ID: {saveData.id || "no id"}</p>
         <p>STATE Players: {selectedPlayers}</p>
         <p>STATE Type: {selectedVenture}</p>
         <p>STATE Title: {ventureTitle}</p>
