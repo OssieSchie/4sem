@@ -94,7 +94,7 @@ export default function ToolWrapper() {
     "Search ❓",
     "Explore 🗺️",
     "Scavenger Hunt 🔎",
-    "Binge drinking 🍻",
+    "Pub Crawl 🍻",
   ];
 
   const imageTypes = [
@@ -217,22 +217,31 @@ export default function ToolWrapper() {
               </a>
             </div>
           </div> */}
-          <div className="fixed bottom-0 right-0 flex flex-col gap-4 bg-white">
-            {savedVentures.map((venture, index) => (
-              <div
-                key={index}
-                className="flex gap-4"
-                onClick={() => {
-                  handleSaveData(venture.id);
-                }}
-              >
-                <h2>ID: {venture.id}</h2>
-                <h3>Title: {venture.title ?? "No title yet"}</h3>
-              </div>
-            ))}
+          <div className="fixed bottom-0 right-0 flex flex-col h-[400px] w-[400px] overflow-y-scroll ">
+            <h2 className="text-svBg">Click to load a Venture</h2>
+            <div className="w-full h-full flex flex-col backdrop-brightness-[1.4]">
+              {savedVentures.map((venture, index) => (
+                <div
+                  key={index}
+                  className={`gap-4 py-4 px-2 flex max-w-full ${
+                    index % 2 === 0
+                      ? "bg-svText50 text-svBg"
+                      : "bg-svBg text-svText50"
+                  }`}
+                  onClick={() => {
+                    handleSaveData(venture.id);
+                  }}
+                >
+                  <h2 className="w-[20%] truncate">ID: {venture.id}</h2>
+                  <h3 className="w-[80%] truncate">
+                    Title: {venture.title ?? "No title yet"}
+                  </h3>
+                </div>
+              ))}
+            </div>
           </div>
           <div
-            className="fixed top-0 right-0 flex flex-col justify-center text-center p-4 rounded-lg bg-darkerOrange"
+            className="fixed bottom-[420px] right-0 flex flex-col justify-center text-center p-4 rounded-lg bg-darkerOrange"
             onClick={() => {
               saveVenture(newSaveData);
             }}
