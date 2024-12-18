@@ -186,15 +186,13 @@ export default function ToolParent({
         <p>STATE Time: {selectedTime}</p>
       </div>
       {/* SELECT IMAGE MODAL */}
-      <div className="relative">
-        <SelectImageModal
-          showImageModal={showImageModal}
-          setShowImageModal={setShowImageModal}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          imageTypes={imageTypes}
-        />
-      </div>
+      <SelectImageModal
+        showImageModal={showImageModal}
+        setShowImageModal={setShowImageModal}
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+        imageTypes={imageTypes}
+      />
       <div className="bg-svBg w-[393px] h-[772px] p-[14px]">
         {/* SELECT PLAYERS */}
         <div className="w-full flex flex-col ">
