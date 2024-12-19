@@ -5,19 +5,28 @@ export default function ToolHeader({ togglePreview, showPreview }) {
       <img
         src="./icons/backArrow.svg"
         alt="Back Arrow"
-        className="w-[35px] h-[35px] mt-auto"
+        className="w-[35px] h-[35px] mt-auto  opacity-20"
       />
       {showPreview ? (
         <h1 className="text-center">Venture Preview</h1>
       ) : (
         <h1 className="text-center">Venture Editor</h1>
       )}
-      <img
-        src="./icons/togglePreview.svg"
-        alt="Toggle preview"
-        className="w-[35px] h-[35px] mt-auto"
-        onClick={togglePreview}
-      />
+      {showPreview ? (
+        <img
+          src="./icons/togglePreview.svg"
+          alt="Toggle preview"
+          className={`w-[35px] h-[35px] mt-auto `}
+          onClick={togglePreview}
+        />
+      ) : (
+        <img
+          src="./icons/togglePreview2.svg"
+          alt="Toggle preview"
+          className={`w-[35px] h-[35px] mt-auto`}
+          onClick={togglePreview}
+        />
+      )}
     </div>
   );
 }

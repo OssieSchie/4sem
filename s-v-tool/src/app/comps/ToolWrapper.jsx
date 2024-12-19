@@ -4,6 +4,7 @@ import ToolParent from "./ToolParent.jsx";
 import PreviewParent from "./PreviewParent.jsx";
 import ToolHeader from "./ToolHeader.jsx";
 import styles from "./ToolWrapper.module.css";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ToolWrapper() {
   const [saveData, setSaveData] = useState({
@@ -20,6 +21,8 @@ export default function ToolWrapper() {
   });
   const [savedVentures, setSavedVentures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [storedId, setStoredId] = useState("");
 
   const [showPreview, setShowPreview] = useState(false);
   const [previewData, setPreviewData] = useState({
@@ -49,31 +52,39 @@ export default function ToolWrapper() {
 
   //const dataType = searchParams.get("type") || "Full";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
+  const fetchData = async () => {
+    setIsLoading(true);
 
-      try {
-        const response = await fetch(`/api/getAllVentures`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const { data } = await response.json();
-        if (data) {
-          console.log(data);
-          setSavedVentures(data);
-        } else {
-          throw new Error("No data received");
-        }
-      } catch (err) {
-        console.error(err.message);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await fetch(`/api/getAllVentures`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      const { data } = await response.json();
+      if (data) {
+        console.log(data);
+        setSavedVentures(data);
+      } else {
+        throw new Error("No data received");
+      }
+    } catch (err) {
+      console.error(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
+
+  function bridgeSaveData() {
+    const ventureId = storedId ?? null;
+    fetchData();
+    toast("Venture Saved!");
+    handleSaveData(ventureId);
+    setIsSaving(false);
+  }
 
   function togglePreview() {
     setShowPreview((prev) => !prev);
@@ -142,6 +153,7 @@ export default function ToolWrapper() {
   ];
 
   async function saveVenture(data) {
+    setIsSaving(true);
     try {
       console.log("Sending data:", data); // Debug log
 
@@ -167,56 +179,21 @@ export default function ToolWrapper() {
 
       const result = await response.json();
       console.log("Save successful:", result);
+      bridgeSaveData();
       return result;
     } catch (error) {
       console.error("Error saving venture:", error);
+      setIsSaving(false);
       throw error;
     }
   }
 
   return (
     <div className="relative w-full h-full overflow-x-clip overflow-y-scroll">
+      <Toaster />
       {isLoading && <div> loading... </div>}
       {!isLoading && (
         <>
-          {/* <div className="fixed bottom-0 right-0 flex gap-2">
-            <div
-              className={`h-8 w-16 text-center flex flex-col justify-center ${
-                dataType === "Full" ? "bg-gray-400" : "bg-white"
-              }`}
-            >
-              <a
-                href="#/?type=Full"
-                onClick={() => (window.location.href = "?type=Full")}
-              >
-                FULL
-              </a>
-            </div>
-            <div
-              className={`h-8 w-16 text-center flex flex-col justify-center ${
-                dataType === "Half" ? "bg-gray-400" : "bg-white"
-              }`}
-            >
-              <a
-                href="#/?type=Half"
-                onClick={() => (window.location.href = "?type=Half")}
-              >
-                HALF
-              </a>
-            </div>
-            <div
-              className={`h-8 w-16 text-center flex flex-col justify-center ${
-                dataType === "Empty" ? "bg-gray-400" : "bg-white"
-              }`}
-            >
-              <a
-                href="#/?type=Empty"
-                onClick={() => (window.location.href = "?type=Empty")}
-              >
-                EMPTY
-              </a>
-            </div>
-          </div> */}
           <div className="fixed bottom-0 right-0 flex flex-col h-[400px] w-[400px] overflow-y-scroll ">
             <h2 className="text-svBg">Click to load a Venture</h2>
             <div className="w-full h-full flex flex-col backdrop-brightness-[1.4]">
@@ -230,6 +207,7 @@ export default function ToolWrapper() {
                   }`}
                   onClick={() => {
                     handleSaveData(venture.id);
+                    setStoredId(venture.id);
                   }}
                 >
                   <h2 className="w-[20%] truncate">ID: {venture.id}</h2>
@@ -241,12 +219,16 @@ export default function ToolWrapper() {
             </div>
           </div>
           <div
-            className="fixed bottom-[420px] right-0 flex flex-col justify-center text-center p-4 rounded-lg bg-darkerOrange"
+            className={`fixed bottom-[420px] right-0 flex flex-col justify-center text-center p-4 rounded-lg bg-darkerOrange ${
+              isSaving ? "brightness-75" : ""
+            }`}
             onClick={() => {
-              saveVenture(newSaveData);
+              if (!isSaving) {
+                saveVenture(newSaveData);
+              } else toast("Saving venture... Please wait.");
             }}
           >
-            <h2>SAVE VENTURE</h2>
+            <h2>{isSaving ? "SAVING..." : "SAVE VENTURE"}</h2>
           </div>
           <ToolHeader togglePreview={togglePreview} showPreview={showPreview} />
           <div className="absolute w-full h-full top-[80px] left-0">
